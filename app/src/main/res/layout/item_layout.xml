@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="4dp"
+    app:cardBackgroundColor="@color/colorItemProduct"
+    app:cardCornerRadius="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:background="@color/colorItemProduct">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="163dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="35dp"
+            android:padding="2dp" />
+
+        <TextView
+            android:id="@+id/text_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_toEndOf="@+id/imageView"
+            android:text="Line 1"
+            android:textColor="@color/colorItemProductText"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_name"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/imageView"
+            android:text="Line 2"
+            android:textColor="@color/colorItemProductTextLineTwo"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/text_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_desc"
+            android:layout_marginLeft="168dp"
+            android:layout_marginTop="15dp"
+            android:text="line 3"
+            android:textAllCaps="true"
+            android:textColor="@color/colorItemProductText"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btn_plus"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_below="@id/text_price"
+            android:layout_marginLeft="350dp"
+            android:layout_marginTop="-28dp"
+            android:background="@drawable/round_corners_btn_product"
+            android:text="+"
+            android:textColor="@color/colorItemProductText"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/text_sum"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_price"
+            android:layout_marginLeft="315dp"
+            android:layout_marginTop="-27dp"
+            android:text="0"
+            android:textAllCaps="true"
+            android:textColor="@color/colorItemProductText"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/btn_minus"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_below="@id/text_price"
+            android:layout_marginLeft="260dp"
+            android:layout_marginTop="-28dp"
+            android:background="@drawable/round_corners_btn_min_product"
+            android:text="-"
+            android:textColor="@color/colorItemProductText"
+            android:textSize="20sp" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

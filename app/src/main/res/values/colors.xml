@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorForTopBar">#242424</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorForMainActivity">#151515</color>
+    <color name="colorForMainBtn">#00A52B</color>
+    <color name="colorItemProduct">#101010</color>
+    <color name="colorItemProductText">#FFFFFF</color>
+    <color name="colorItemProductTextLineTwo">#686868</color>
+    <color name="colorProductActivity">#000000</color>
+</resources>
