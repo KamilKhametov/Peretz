@@ -108,7 +108,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ExampleViewHolder>
                     text_sum.setVisibility ( View.VISIBLE );
                     btn_minus.setVisibility ( View.VISIBLE );
 
-
                 }
             } );
 
