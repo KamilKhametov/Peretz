@@ -47,16 +47,22 @@ public class ProductActivity extends AppCompatActivity {
                     // Добавь эти данные в List
                     List<ResponseData> responseData = response.body();
 
+
+
                     // Нахождение RecyclerView по id
                     mRecyclerView = findViewById(R.id.recyclerView);
                     // Установка RecyclerView
                     mRecyclerView.setHasFixedSize(true);
-                    mAdapter = new MyAdapter (responseData);
+                    mAdapter = new MyAdapter ( responseData );
                     mRecyclerView.setLayoutManager(mLayoutManager);
                     mRecyclerView.setAdapter(mAdapter);
+
+
                 }
 
             }
+
+
 
 
 

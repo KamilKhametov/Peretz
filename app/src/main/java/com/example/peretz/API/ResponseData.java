@@ -3,7 +3,7 @@ package com.example.peretz.API;
 import java.util.List;
 
 
-import com.example.peretz.MyAdapter;
+
 import com.google.gson.annotations.SerializedName;
 
 

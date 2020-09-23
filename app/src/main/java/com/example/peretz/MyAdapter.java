@@ -1,6 +1,7 @@
 package com.example.peretz;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,22 +12,26 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.bumptech.glide.Glide;
 import com.example.peretz.API.ResponseData;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+
 import java.util.List;
+
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ExampleViewHolder> {
 
+
+    Context context;
     static int a;
-    static int sum=0;
     private List<ResponseData> mExampleList;
+
+    public MyAdapter( List<ResponseData> responseData ) {
+        this.mExampleList=responseData;
+    }
 
 
     public static class ExampleViewHolder extends RecyclerView.ViewHolder {
-
         // Объявление полей
         public ImageView imageView;
         public TextView mTextView1;
@@ -36,10 +41,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ExampleViewHolder>
         public Button btn_plus;
         public Button btn_minus;
         public TextView text_sum;
+        int number=0;
+        private final static String KEY="key";
+        private SharedPreferences pref;
 
 
         public ExampleViewHolder( View itemView ) {
             super ( itemView );
+
 
             // Нахождение полей по id
             imageView=itemView.findViewById ( R.id.imageView );
@@ -51,11 +60,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ExampleViewHolder>
             btn_minus=itemView.findViewById ( R.id.btn_minus );
             text_sum=itemView.findViewById ( R.id.text_sum );
 
+            pref=itemView.getContext ().getSharedPreferences ( "TABLE", Context.MODE_PRIVATE );
+
 
         }
 
 
         public void bind( ResponseData responseData ) {
+            number=pref.getInt ( String.valueOf ( responseData.getId () ), 0 );
+            text_sum.setText ( String.valueOf ( number ) );
+
             // Получение данных с API
             // Получение имени с API
             mTextView1.setText ( responseData.getName () );
@@ -70,7 +84,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ExampleViewHolder>
 
             // Получение изображения с API с помощью библиотеки Picasso
             String url=responseData.getImage ();
-            Picasso.with ( itemView.getContext () ).load ( url ).into ( imageView );
+            Picasso.with ( itemView.getContext () )
+                    .load ( url )
+                    .into ( imageView );
 
 
             // Скрытие кнопки -
@@ -85,47 +101,54 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ExampleViewHolder>
             btn_plus.setOnClickListener ( new View.OnClickListener () {
                 @Override
                 public void onClick( View v ) {
-                    int number = Integer.parseInt ( text_sum.getText ().toString () ) + 1;
+                    number=Integer.parseInt ( text_sum.getText ().toString () ) + 1;
                     text_sum.setText ( String.valueOf ( number ) );
+                    saveData(String.valueOf ( responseData.getId () ),number);
+
                     text_sum.setVisibility ( View.VISIBLE );
                     btn_minus.setVisibility ( View.VISIBLE );
 
+
                 }
             } );
+
 
             // Нажатие на кнопку минус
             btn_minus.setOnClickListener ( new View.OnClickListener () {
                 @Override
                 public void onClick( View v ) {
-                    if(Integer.parseInt ( text_sum.getText ().toString ()  ) > 0) {
+                    if (Integer.parseInt ( text_sum.getText ().toString () ) > 0) {
                         int number=Integer.parseInt ( text_sum.getText ().toString () ) - 1;
                         text_sum.setText ( String.valueOf ( number ) );
-                        if(Integer.parseInt ( text_sum.getText ().toString () ) == 0){
+                        saveData ( String.valueOf ( responseData.getId ()), number );
+
+                        if (Integer.parseInt ( text_sum.getText ().toString () ) == 0) {
+                            pref.edit ().remove ( String.valueOf ( responseData.getId () ) );
                             text_sum.setVisibility ( View.GONE );
                             btn_minus.setVisibility ( View.GONE );
                         }
                     }
-
                 }
             } );
 
         }
 
+        private void saveData( String id, int dataToSave ) {
+            SharedPreferences.Editor editor=pref.edit ();
+            editor.putInt ( id, dataToSave );
+            editor.apply ();
+        }
 
     }
 
-    public MyAdapter( List<ResponseData> exampleList ) {
-        this.mExampleList=exampleList;
-
-    }
 
     @Override
     public ExampleViewHolder onCreateViewHolder( ViewGroup parent, int viewType ) {
         // Раздувание layout'a
-        View v=LayoutInflater.from ( parent.getContext () ).inflate ( R.layout.item_layout, parent, false );
+        View v=LayoutInflater.from ( parent.getContext () )
+                .inflate ( R.layout.item_layout, parent, false );
         ExampleViewHolder evh=new ExampleViewHolder ( v );
         return evh;
-
 
     }
 
@@ -135,7 +158,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ExampleViewHolder>
         // Получение данных с arrayList по позиции
         holder.bind ( mExampleList.get ( position ) );
 
-
     }
 
 
@@ -144,4 +166,5 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ExampleViewHolder>
         // Возвращаем размер ArrayList'a
         return mExampleList.size ();
     }
+
 }
